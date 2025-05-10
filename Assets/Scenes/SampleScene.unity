@@ -426,6 +426,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1610470040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1610470041}
+  m_Layer: 0
+  m_Name: MagnetePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1610470041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610470040}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.29, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1767070221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767070220
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +467,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1767070221}
   - component: {fileID: 1767070222}
+  - component: {fileID: 1767070223}
+  - component: {fileID: 1767070224}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -458,6 +491,7 @@ Transform:
   m_Children:
   - {fileID: 9080628908906236794}
   - {fileID: 330585546}
+  - {fileID: 1610470041}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1767070222
@@ -478,6 +512,44 @@ MonoBehaviour:
   maxDistance: 25
   minHeight: -2.1
   maxHeight: 3.5
+--- !u!114 &1767070223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767070220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa37ec8b6d96d9448b825dab26a179a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8008383788257450007, guid: 36f56e0476d462e4f9ac5b41751bdacc, type: 3}
+  count: 5
+  spawnSpread: 0.5
+  throwForce: 10
+  cameraTransform: {fileID: 330585546}
+--- !u!114 &1767070224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767070220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3927152b3ec2ef144918abceefab355e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnetRange: 5
+  moveDuration: 0.5
+  energy: 100
+  energyDrainPerSecond: 20
+  energyRechargePerSecond: 5
+  magnetAttachPoint: {fileID: 1610470041}
+  boxLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &2139256311
 GameObject:
   m_ObjectHideFlags: 0

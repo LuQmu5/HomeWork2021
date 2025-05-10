@@ -8,6 +8,9 @@ public class HandController : MonoBehaviour
     [SerializeField] private float maxDistance = 2f;
     [SerializeField] private float minHeight = 0.0f;
     [SerializeField] private float maxHeight = 2.0f;
+    [SerializeField] private LayerMask blockLayer; // —лой, который блокирует спуск
+    [SerializeField] private float raycastMaxDistance = 5f; // ћаксимальна€ длина луча
+    [SerializeField] private Transform checkObject;
 
     private Vector3 startLocalPosition;
     private float targetHeight;
@@ -29,10 +32,32 @@ public class HandController : MonoBehaviour
         Vector3 clampedXZ = startLocalPosition + Vector3.ClampMagnitude(targetXZ - startLocalPosition, maxDistance);
         clampedXZ.y = transform.localPosition.y;
 
+        // ѕолучаем значение прокрутки колесика мыши
         float scroll = Input.GetAxis("Mouse ScrollWheel");
+
         if (scroll != 0)
         {
-            targetHeight += scroll * 1.5f; // как быстро колесико вли€ет на высоту
+            // ѕроверка на столкновение с объектом, который блокирует спуск
+            if (RaycastUtility.IsObjectBlocking(checkObject.position, -transform.up, blockLayer, raycastMaxDistance) && scroll < 0)
+            {
+                // ≈сли луч касаетс€ объекта с нужным слоем, не измен€ем высоту
+                return;
+            }
+
+            // ≈сли прокрутка колесика изменилась, то учитываем величину прокрутки
+            float scrollMultiplier = Mathf.Abs(scroll); // јбсолютное значение прокрутки дл€ определени€ "силы"
+            if (scroll > 0)
+            {
+                // ≈сли прокрутка вверх (положительное значение), увеличиваем высоту
+                targetHeight += scrollMultiplier * scrollSpeedUp;
+            }
+            else
+            {
+                // ≈сли прокрутка вниз (отрицательное значение), уменьшаем высоту
+                targetHeight -= scrollMultiplier * scrollSpeedDown;
+            }
+
+            // ќграничиваем целевую высоту
             targetHeight = Mathf.Clamp(targetHeight, minHeight, maxHeight);
         }
 

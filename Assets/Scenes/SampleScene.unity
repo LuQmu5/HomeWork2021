@@ -3465,6 +3465,7 @@ GameObject:
   - component: {fileID: 1767070223}
   - component: {fileID: 1767070224}
   - component: {fileID: 1767070225}
+  - component: {fileID: 1767070226}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3506,7 +3507,7 @@ MonoBehaviour:
   scrollSpeedUp: 8
   scrollSpeedDown: 16
   maxDistance: 25
-  minHeight: -3
+  minHeight: -2.5
   maxHeight: 3.5
   blockLayer:
     serializedVersion: 2
@@ -3597,6 +3598,25 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1767070226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767070220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee49f951216795340acf9f40769c48b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animators:
+  - {fileID: 3255971077487084641}
+  - {fileID: 1999775054}
+  - {fileID: 2066716974}
+  - {fileID: 1150724906}
+  destroyerAnimationName: Destroyer
+  destroyerOffAnimationName: DestroyerOff
 --- !u!1 &1806067452
 GameObject:
   m_ObjectHideFlags: 0

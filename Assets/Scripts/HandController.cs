@@ -9,8 +9,9 @@ public class HandController : MonoBehaviour
     [SerializeField] private float minHeight = 0.0f;
     [SerializeField] private float maxHeight = 2.0f;
     [SerializeField] private LayerMask blockLayer; // Слой, который блокирует спуск
-    [SerializeField] private float raycastMaxDistance = 5f; // Максимальная длина луча
-    [SerializeField] private Transform checkObject;
+    [SerializeField] private Vector3 boxCastSize = new Vector3(0.5f, 0.5f, 0.5f); // Размеры коробки для BoxCast
+    [SerializeField] private float raycastMaxDistance = 5f; // Максимальная длина BoxCast
+    [SerializeField] private Transform[] checkObjectsPoints; // Массив точек, из которых будет исходить BoxCast
 
     private Vector3 startLocalPosition;
     private float targetHeight;
@@ -37,10 +38,10 @@ public class HandController : MonoBehaviour
 
         if (scroll != 0)
         {
-            // Проверка на столкновение с объектом, который блокирует спуск
-            if (RaycastUtility.IsObjectBlocking(checkObject.position, -transform.up, blockLayer, raycastMaxDistance) && scroll < 0)
+            // Проверка на столкновение с объектом, который блокирует спуск, с использованием BoxCast
+            if (RaycastUtility.IsObjectBlockingWithBoxCast(checkObjectsPoints, boxCastSize, blockLayer, raycastMaxDistance) && scroll < 0)
             {
-                // Если луч касается объекта с нужным слоем, не изменяем высоту
+                // Если BoxCast касается объекта с нужным слоем, не изменяем высоту
                 return;
             }
 

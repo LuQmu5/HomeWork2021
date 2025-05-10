@@ -2,15 +2,23 @@
 
 public static class RaycastUtility
 {
-    // Проверка столкновения с объектом по лучу, направленному вниз, с учетом слоя и максимальной длины
-    public static bool IsObjectBlocking(Vector3 origin, Vector3 direction, LayerMask blockLayer, float maxDistance)
+    public static bool IsObjectBlockingWithBoxCast(Transform[] checkPoints, Vector3 boxSize, LayerMask blockLayer, float maxDistance)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(origin, direction, out hit, maxDistance, blockLayer))
+        bool isBlocked = false;
+
+        foreach (Transform point in checkPoints)
         {
-            // Если луч попал в объект, возвращаем true
-            return true;
+            if (point != null)
+            {
+                // Проверка BoxCast с использованием точки и направления
+                RaycastHit hit;
+                if (Physics.BoxCast(point.position, boxSize / 2, -point.up, out hit, Quaternion.identity, maxDistance, blockLayer))
+                {
+                    isBlocked = true; // Объект найден
+                }
+            }
         }
-        return false;
+
+        return isBlocked;
     }
 }

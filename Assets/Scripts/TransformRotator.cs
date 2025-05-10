@@ -2,8 +2,6 @@
 
 public class TransformRotator : MonoBehaviour
 {
-    [SerializeField] private Transform checkObject;
-
     [Header("Rotation Settings")]
     [SerializeField] private Transform[] targets;
     [SerializeField] private float openAngleX = 30f;
@@ -16,23 +14,27 @@ public class TransformRotator : MonoBehaviour
     [SerializeField] private float detectionRadius = 1f;
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private float detectionOffsetDistance = 1f; // Дистанция оффсета относительно forward
+
+    [Header("BoxCast Settings")]
+    [SerializeField] private Transform[] checkObjectsPoints; // Массив точек, из которых будет исходить BoxCast
+    [SerializeField] private Vector3 boxCastSize = new Vector3(0.5f, 0.5f, 0.5f); // Размеры коробки для BoxCast
+    [SerializeField] private float raycastMaxDistance = 5f; // Максимальная длина BoxCast
     [SerializeField] private LayerMask blockLayer; // Слой, который блокирует вращение
-    [SerializeField] private float raycastMaxDistance = 5f; // Максимальная длина луча
 
     private void Update()
     {
         bool rightMouseHeld = Input.GetMouseButton(1);
         bool objectDetected = IsAnyObjectDetected();
 
-        // Проверка на блокировку вращения (если луч попадет в объект с нужным слоем)
-        if (RaycastUtility.IsObjectBlocking(checkObject.position, -transform.up, blockLayer, raycastMaxDistance))
-        {
-            // Если луч касается объекта с нужным слоем, останавливаем вращение
-            return;
-        }
-
         float targetAngle = rightMouseHeld ? openAngleX : (objectDetected ? openAngleX : closeAngleX);
         float speed = rightMouseHeld ? openSpeed : (objectDetected ? 0f : closeSpeed);
+
+        // Проверка на столкновение с объектом, который блокирует вращение, с использованием BoxCast
+        if (RaycastUtility.IsObjectBlockingWithBoxCast(checkObjectsPoints, boxCastSize, blockLayer, raycastMaxDistance))
+        {
+            // Если BoxCast касается объекта с нужным слоем, не выполняем вращение
+            return;
+        }
 
         foreach (Transform t in targets)
         {

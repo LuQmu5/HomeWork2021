@@ -2417,37 +2417,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151065019}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1155647800
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1155647801}
-  m_Layer: 0
-  m_Name: CheckObjectsPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1155647801
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155647800}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1767070221}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187587953
 GameObject:
   m_ObjectHideFlags: 0
@@ -3519,7 +3488,6 @@ Transform:
   - {fileID: 1451662361854245276}
   - {fileID: 330585546}
   - {fileID: 1610470041}
-  - {fileID: 1155647801}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1767070222
@@ -3543,8 +3511,13 @@ MonoBehaviour:
   blockLayer:
     serializedVersion: 2
     m_Bits: 64
-  raycastMaxDistance: 5
-  checkObject: {fileID: 1155647801}
+  boxCastSize: {x: 0.25, y: 0.25, z: 0.25}
+  raycastMaxDistance: 1
+  checkObjectsPoints:
+  - {fileID: 9007137916360349410}
+  - {fileID: 115255932}
+  - {fileID: 676127400}
+  - {fileID: 317233340}
 --- !u!114 &1767070223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3595,14 +3568,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21c8d20c31e7ee41976c962114dbf26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkObject: {fileID: 1155647801}
   targets:
   - {fileID: 2266936918793508}
   - {fileID: 1187587954}
   - {fileID: 593922619}
   - {fileID: 907580236}
   openAngleX: 30
-  closeAngleX: -15
+  closeAngleX: -5
   openSpeed: 90
   closeSpeed: 150
   detectionPoints:
@@ -3615,10 +3587,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   detectionOffsetDistance: 0
+  checkObjectsPoints:
+  - {fileID: 9007137916360349410}
+  - {fileID: 115255932}
+  - {fileID: 676127400}
+  - {fileID: 317233340}
+  boxCastSize: {x: 0.25, y: 0.25, z: 0.25}
+  raycastMaxDistance: 1
   blockLayer:
     serializedVersion: 2
     m_Bits: 64
-  raycastMaxDistance: 5
 --- !u!1 &1806067452
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿public interface IHeightAdjustable
 {
-    void MoveToHeight(float targetY, float speed);
-    void Tick(float deltaTime);
+    void AdjustHeight(float direction, float speed, float deltaTime);
 }

@@ -13,10 +13,10 @@ public class GodHandInput : MonoBehaviour
         _playerController = new CompositeController(
             new PlayerMouseMoveController(_mover, moveSensitivity: _mover.MovementSpeed), 
             new PlayerMouseScrollRotateController(_grabberRotator),
-            new PlayerHeightController(_heightAdjuster, 
-            _heightAdjuster.MinY, _heightAdjuster.MaxY, 
+            new PlayerHeightController(_heightAdjuster, _heightAdjuster.Target,
             _heightAdjuster.MoveUpSpeed, _heightAdjuster.MoveDownSpeed,
-            KeyCode.LeftShift, KeyCode.LeftControl)
+            KeyCode.LeftShift, KeyCode.LeftControl,
+            _heightAdjuster.MinY, _heightAdjuster.MaxY)
             );
 
         _playerController.Enable();

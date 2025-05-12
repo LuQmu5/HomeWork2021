@@ -2,37 +2,23 @@
 
 public class GodHandHeightAdjuster : MonoBehaviour, IHeightAdjustable
 {
-    [SerializeField] private Transform _target;
+    [field: SerializeField] public Transform Target;
     [field: SerializeField] public float MinY = 0.2f;
     [field: SerializeField] public float MaxY = 2f;
     [field: SerializeField] public float MoveUpSpeed = 5f;
     [field: SerializeField] public float MoveDownSpeed = 8f;
 
-    private float _currentSpeed;
-    private float _targetY;
-    private bool _isMoving;
-
-    public void MoveToHeight(float targetY, float speed)
+    public void AdjustHeight(float direction, float speed, float deltaTime)
     {
-        _targetY = Mathf.Clamp(targetY, MinY, MaxY);
-        _currentSpeed = Mathf.Abs(speed);
-        _isMoving = true;
-    }
-
-    public void Tick(float deltaTime)
-    {
-        if (!_isMoving || _target == null)
+        if (Target == null || Mathf.Approximately(direction, 0f))
             return;
 
-        float currentY = _target.localPosition.y;
-        float newY = Mathf.MoveTowards(currentY, _targetY, _currentSpeed * deltaTime);
+        float currentY = Target.localPosition.y;
+        float newY = currentY + direction * speed * deltaTime;
+        newY = Mathf.Clamp(newY, MinY, MaxY);
 
-        Vector3 localPos = _target.localPosition;
+        Vector3 localPos = Target.localPosition;
         localPos.y = newY;
-        _target.localPosition = localPos;
-
-        if (Mathf.Approximately(newY, _targetY))
-            _isMoving = false;
+        Target.localPosition = localPos;
     }
 }
-

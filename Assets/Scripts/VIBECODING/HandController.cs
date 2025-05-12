@@ -5,7 +5,6 @@ public class HandController : MonoBehaviour
     [SerializeField] private float moveSensitivity = 0.01f;
     [SerializeField] private float scrollSpeedUp = 2f;
     [SerializeField] private float scrollSpeedDown = 4f;
-    [SerializeField] private float maxDistance = 2f;
     [SerializeField] private float minHeight = 0.0f;
     [SerializeField] private float maxHeight = 2.0f;
     [SerializeField] private LayerMask blockLayer; // Слой, который блокирует спуск
@@ -13,6 +12,7 @@ public class HandController : MonoBehaviour
     [SerializeField] private float raycastMaxDistance = 5f; // Максимальная длина BoxCast
     [SerializeField] private Transform[] checkObjectsPoints; // Массив точек, из которых будет исходить BoxCast
 
+    [SerializeField] private float maxDistance = 2f;
     private Vector3 startLocalPosition;
     private float targetHeight;
 

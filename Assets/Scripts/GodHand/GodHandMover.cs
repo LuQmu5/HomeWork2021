@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GodHand : MonoBehaviour, IMouseDirectionalMovable
+public class GodHandMover : MonoBehaviour, IMouseMovable
 {
     private MouseDirectionalMover _mover;
 
@@ -23,3 +23,4 @@ public class GodHand : MonoBehaviour, IMouseDirectionalMovable
         _mover.SetInputDirection(inputDirection);
     }
 }
+

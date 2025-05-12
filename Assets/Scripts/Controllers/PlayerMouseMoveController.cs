@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class PlayerDirectionalMouseController : Controller
+public class PlayerMouseMoveController : Controller
 {
     private const string VerticalMouseAxis = "Mouse Y";
     private const string HorizontalMouseAxis = "Mouse X";
 
-    private IMouseDirectionalMovable _movable;
+    private IMouseMovable _movable;
     private float _moveSensitivity;
 
-    public PlayerDirectionalMouseController(IMouseDirectionalMovable movable, float moveSensitivity)
+    public PlayerMouseMoveController(IMouseMovable movable, float moveSensitivity)
     {
         _movable = movable;
         _moveSensitivity = moveSensitivity;

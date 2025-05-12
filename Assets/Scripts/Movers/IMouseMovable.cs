@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IMouseDirectionalMovable
+public interface IMouseMovable
 {
     void SetMoveDirection(Vector3 inputDirection);
 }

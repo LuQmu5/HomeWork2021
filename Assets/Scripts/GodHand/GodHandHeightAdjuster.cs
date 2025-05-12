@@ -3,14 +3,19 @@
 public class GodHandHeightAdjuster : MonoBehaviour, IHeightAdjustable
 {
     [field: SerializeField] public Transform Target;
-    [field: SerializeField] public float MinY = 0.2f;
-    [field: SerializeField] public float MaxY = 2f;
+    [field: SerializeField] public float MinY = -2.5f;
+    [field: SerializeField] public float MaxY = 5f;
     [field: SerializeField] public float MoveUpSpeed = 5f;
     [field: SerializeField] public float MoveDownSpeed = 8f;
+
+    [SerializeField] private BlockingRaycastChecker _blockingRaycastChecker;
 
     public void AdjustHeight(float direction, float speed, float deltaTime)
     {
         if (Target == null || Mathf.Approximately(direction, 0f))
+            return;
+
+        if (direction < 0 && _blockingRaycastChecker.IsBlocked())
             return;
 
         float currentY = Target.localPosition.y;

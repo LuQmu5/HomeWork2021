@@ -2,6 +2,8 @@
 
 public class GodHandGrabberRotator : MonoBehaviour, IRotatable
 {
+    [SerializeField] private BlockingRaycastChecker _blockingRaycastChecker;
+
     [SerializeField] private Transform[] _rotatableTargets;
     [SerializeField] private float _openAngleX = 30f;
     [SerializeField] private float _closeAngleX = -15f;
@@ -27,6 +29,9 @@ public class GodHandGrabberRotator : MonoBehaviour, IRotatable
         }
         else if (scrollDelta > 0f)
         {
+            if (_blockingRaycastChecker.IsBlocked())
+                return;
+
             _currentTargetAngle = _closeAngleX;
             angle = Mathf.MoveTowards(angle, _closeAngleX, _closeSpeed * deltaTime);
         }

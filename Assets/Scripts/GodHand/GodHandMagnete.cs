@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class GodHandMagnete : MonoBehaviour
+public class GodHandMagnete : MonoBehaviour, IMagnetic
 {
     [SerializeField] private Transform[] _grabPoints;
     [SerializeField] private Transform _magnetePoint;
@@ -11,6 +11,7 @@ public class GodHandMagnete : MonoBehaviour
     private Collider _grabbedObject;
     private Rigidbody _grabbedRigidbody;
     private bool _isFollowing;
+    private bool _forceMagnetActive;
 
     private void Awake()
     {
@@ -24,9 +25,20 @@ public class GodHandMagnete : MonoBehaviour
 
     private void Update()
     {
-        if (_isFollowing && _grabbedObject != null)
+        if (_grabbedObject != null && (_isFollowing || _forceMagnetActive))
         {
             _grabbedObject.transform.position = _magnetePoint.position;
+            _grabbedObject.transform.rotation = _magnetePoint.rotation;
+        }
+    }
+
+    public void SetMagnetActive(bool active)
+    {
+        _forceMagnetActive = active;
+
+        if (!active && _grabbedObject != null && !AllPointsTouchingSameObject(_grabbedObject))
+        {
+            ReleaseObject();
         }
     }
 
@@ -44,7 +56,7 @@ public class GodHandMagnete : MonoBehaviour
         if (_pointHits[point] == collider)
             _pointHits[point] = null;
 
-        if (_grabbedObject != null && !AllPointsTouchingSameObject(_grabbedObject))
+        if (_grabbedObject != null && !AllPointsTouchingSameObject(_grabbedObject) && !_forceMagnetActive)
         {
             ReleaseObject();
         }

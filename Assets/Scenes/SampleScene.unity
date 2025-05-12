@@ -618,6 +618,7 @@ MonoBehaviour:
   _mover: {fileID: 7776357115111428037}
   _grabberRotator: {fileID: 7776357115111428038}
   _heightAdjuster: {fileID: 7776357115111428039}
+  _magnete: {fileID: 7776357115111428040}
 --- !u!4 &2043379020
 Transform:
   m_ObjectHideFlags: 0
@@ -1950,7 +1951,7 @@ GameObject:
   - component: {fileID: 2385164942775288732}
   - component: {fileID: 4099025919193421234}
   m_Layer: 0
-  m_Name: Pivot (CheckRaycast)
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5907,7 +5908,7 @@ GameObject:
   - component: {fileID: 4175389821088339881}
   - component: {fileID: 3990318103597221131}
   m_Layer: 0
-  m_Name: Pivot (CheckRaycast)
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7929,7 +7930,7 @@ GameObject:
   - component: {fileID: 2067363104282603230}
   - component: {fileID: 765860914693526198}
   m_Layer: 0
-  m_Name: Pivot (CheckRaycast)
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8246,7 +8247,7 @@ GameObject:
   - component: {fileID: 4302625941192024903}
   - component: {fileID: 2093685164208870604}
   m_Layer: 0
-  m_Name: Pivot (CheckRaycast)
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10959,7 +10960,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 20
-  MaxMoveDistance: 25
+  MaxMoveDistance: 28
 --- !u!114 &7776357115111428038
 MonoBehaviour:
   m_ObjectHideFlags: 0

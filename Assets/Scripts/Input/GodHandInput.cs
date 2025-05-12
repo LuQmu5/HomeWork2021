@@ -5,6 +5,7 @@ public class GodHandInput : MonoBehaviour
     [SerializeField] private GodHandMover _mover;
     [SerializeField] private GodHandGrabberRotator _grabberRotator;
     [SerializeField] private GodHandHeightAdjuster _heightAdjuster;
+    [SerializeField] private GodHandMagnete _magnete;
 
     private Controller _playerController;
 
@@ -16,7 +17,8 @@ public class GodHandInput : MonoBehaviour
             new PlayerHeightController(_heightAdjuster, _heightAdjuster.Target,
             _heightAdjuster.MoveUpSpeed, _heightAdjuster.MoveDownSpeed,
             KeyCode.LeftShift, KeyCode.LeftControl,
-            _heightAdjuster.MinY, _heightAdjuster.MaxY)
+            _heightAdjuster.MinY, _heightAdjuster.MaxY),
+            new MagnetController(_magnete)
             );
 
         _playerController.Enable();

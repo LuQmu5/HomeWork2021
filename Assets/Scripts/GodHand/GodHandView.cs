@@ -8,7 +8,10 @@ public class GodHandView : MonoBehaviour
     private const string GrabModeAnimationName = "GrabMode";
     private const string ShootModeAnimationName = "ShootMode";
 
+    [Header("Grabber")]
     [SerializeField] private Animator[] _grabberAnimators;
+
+    [Header("Recoil")]
     [SerializeField] private Transform _recoilTarget;
     [SerializeField] private float _preparationLift = 0.05f;
     [SerializeField] private float _recoilLift = 0.2f;
@@ -16,6 +19,10 @@ public class GodHandView : MonoBehaviour
     [SerializeField] private float _recoilDuration = 0.1f;
     [SerializeField] private float _returnDuration = 0.15f;
     [SerializeField] private float _betweenPreparationAndRecoilDelay = 0.05f;
+
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem[] _chargeExplosionVFX;
+    [SerializeField] private ParticleSystem _explosionAreaVFX;
 
     private Vector3 _initialLocalPosition;
 
@@ -52,7 +59,7 @@ public class GodHandView : MonoBehaviour
 
         recoilSequence.Append(
             _recoilTarget.DOLocalMove(preparationPosition, _preparationDuration)
-                .SetEase(Ease.InOutSine)
+                .SetEase(Ease.InOutSine).OnComplete(PlayChargeVFX)
         );
 
         recoilSequence.AppendInterval(_betweenPreparationAndRecoilDelay);
@@ -69,10 +76,19 @@ public class GodHandView : MonoBehaviour
         );
     }
 
+    private void PlayChargeVFX()
+    {
+        _explosionAreaVFX.Play();
 
+        foreach (var vfx in _chargeExplosionVFX)
+        {
+            vfx.Play();
+        }
+    }
 
     private void OnShootCompleted()
     {
+        _explosionAreaVFX.Stop();
         OnShootEffectComplete?.Invoke();
         PlayGrabberAnimation(GrabModeAnimationName);
     }

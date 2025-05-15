@@ -6,6 +6,9 @@ public class GodHandMagnete : MonoBehaviour, IMagnetic
     [SerializeField] private Transform[] _grabPoints;
     [SerializeField] private Transform _magnetePoint;
     [SerializeField] private LayerMask _grabbableLayer;
+    [SerializeField] private float _followSpeed = 20f;
+    [SerializeField] private float _rotationSpeed = 360f;
+
 
     private readonly Dictionary<Transform, Collider> _pointHits = new();
     private Collider _grabbedObject;
@@ -27,10 +30,22 @@ public class GodHandMagnete : MonoBehaviour, IMagnetic
     {
         if (_grabbedObject != null && (_isFollowing || _forceMagnetActive))
         {
-            _grabbedObject.transform.position = _magnetePoint.position;
-            _grabbedObject.transform.rotation = _magnetePoint.rotation;
+            Transform grabbedTransform = _grabbedObject.transform;
+
+            grabbedTransform.position = Vector3.MoveTowards(
+                grabbedTransform.position,
+                _magnetePoint.position,
+                _followSpeed * Time.deltaTime
+            );
+
+            grabbedTransform.rotation = Quaternion.RotateTowards(
+                grabbedTransform.rotation,
+                _magnetePoint.rotation,
+                _rotationSpeed * Time.deltaTime
+            );
         }
     }
+
 
     public void SetMagnetActive(bool active)
     {

@@ -1,35 +1,47 @@
-﻿using System;
+﻿// Новый MouseDirectionalMover через Rigidbody
 using UnityEngine;
 
-public class MouseDirectionalMover : Controller
+public class MouseDirectionalMover : IMouseMovable
 {
-    private Transform _transform;
-    private float _movementSpeed;
-    private Vector3 _direction;
-    private float _maxDistance;
-    private Vector3 _startLocalPosition;
+    private readonly Rigidbody _rigidbody;
+    private readonly Transform _transform;
+    private readonly float _movementForce;
+    private readonly float _maxDistance;
 
-    public MouseDirectionalMover(Transform transform, float movementSpeed, float maxDistance)
+    private Vector3 _inputDirection;
+    private readonly Vector3 _startPosition;
+
+    private readonly float _returnForce = 150f;
+    private readonly float _drag = 10f;
+
+    public MouseDirectionalMover(Rigidbody rigidbody, float movementForce, float maxDistance)
     {
-        _startLocalPosition = transform.localPosition;
-        _transform = transform;
-        _movementSpeed = movementSpeed;
+        _rigidbody = rigidbody;
+        _transform = rigidbody.transform;
+        _movementForce = movementForce;
         _maxDistance = maxDistance;
+        _startPosition = rigidbody.position;
 
-        Cursor.lockState = CursorLockMode.Locked;
+        _rigidbody.linearDamping = _drag;
     }
 
-    public void SetInputDirection(Vector3 inputDirection)
+    public void Enable() { }
+
+    public void SetMoveDirection(Vector3 inputDirection)
     {
-        _direction = inputDirection;
+        _inputDirection = new Vector3(0f, 0f, inputDirection.z).normalized;
     }
 
-    protected override void UpdateLogic(float deltaTime)
+    public void Update(float deltaTime)
     {
-        Vector3 offset = new Vector3(_direction.x, 0, _direction.y) * _movementSpeed * deltaTime;
-        Vector3 targetPos = _transform.localPosition + offset;
-        Vector3 clampedPos = _startLocalPosition + Vector3.ClampMagnitude(targetPos - _startLocalPosition, _maxDistance);
+        Vector3 toTarget = _inputDirection * _movementForce;
+        _rigidbody.AddForce(toTarget, ForceMode.Acceleration);
 
-        _transform.localPosition = new Vector3(clampedPos.x, _transform.localPosition.y, clampedPos.z);
+        Vector3 offset = _rigidbody.position - _startPosition;
+        if (offset.magnitude > _maxDistance)
+        {
+            Vector3 correction = (_startPosition + offset.normalized * _maxDistance) - _rigidbody.position;
+            _rigidbody.AddForce(correction * _returnForce, ForceMode.Acceleration);
+        }
     }
 }

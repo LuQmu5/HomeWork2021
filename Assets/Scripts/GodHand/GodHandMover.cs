@@ -7,9 +7,11 @@ public class GodHandMover : MonoBehaviour, IMouseMovable
     [field: SerializeField] public float MovementSpeed;
     [field: SerializeField] public float MaxMoveDistance;
 
+    [SerializeField] private Rigidbody _rigidbody;
+
     private void Awake()
     {
-        _mover = new MouseDirectionalMover(transform, MovementSpeed, MaxMoveDistance);
+        _mover = new MouseDirectionalMover(_rigidbody, MovementSpeed, MaxMoveDistance);
         _mover.Enable();
     }
 
@@ -20,7 +22,7 @@ public class GodHandMover : MonoBehaviour, IMouseMovable
 
     public void SetMoveDirection(Vector3 inputDirection)
     {
-        _mover.SetInputDirection(inputDirection);
+        _mover.SetMoveDirection(inputDirection);
     }
 }
 

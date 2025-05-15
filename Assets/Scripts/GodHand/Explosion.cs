@@ -2,21 +2,23 @@
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] private float explosionForce = 700f;
-    [SerializeField] private float explosionRadius = 5f;
-    [SerializeField] private float upwardsModifier = 0.5f;
-    [SerializeField] private LayerMask affectedLayers;
+    [SerializeField] private float _explosionForce = 700f;
+    [SerializeField] private float _explosionRadius = 5f;
+    [SerializeField] private float _upwardsModifier = 0.5f;
+    [SerializeField] private LayerMask _affectedLayers;
 
     public void Explode(Vector3 position)
     {
-        Collider[] colliders = Physics.OverlapSphere(position, explosionRadius, affectedLayers);
+        Collider[] colliders = Physics.OverlapSphere(position, _explosionRadius, _affectedLayers);
 
         foreach (Collider nearby in colliders)
         {
-            Rigidbody rb = nearby.attachedRigidbody;
-            if (rb == null) continue;
+            Rigidbody rigidbody = nearby.attachedRigidbody;
 
-            rb.AddExplosionForce(explosionForce, position, explosionRadius, upwardsModifier, ForceMode.Impulse);
+            if (rigidbody == null) 
+                continue;
+
+            rigidbody.AddExplosionForce(_explosionForce, position, _explosionRadius, _upwardsModifier, ForceMode.Impulse);
         }
     }
 }

@@ -2,16 +2,14 @@
 
 public class GodHandMover : MonoBehaviour, IMouseMovable
 {
-    private MouseDirectionalMover _mover;
-
     [field: SerializeField] public float MovementSpeed;
     [field: SerializeField] public float MaxMoveDistance;
 
-    [SerializeField] private Rigidbody _rigidbody;
+    private MouseDirectionalMover _mover;
 
     private void Awake()
     {
-        _mover = new MouseDirectionalMover(_rigidbody, MovementSpeed, MaxMoveDistance);
+        _mover = new MouseDirectionalMover(transform, MovementSpeed, MaxMoveDistance);
         _mover.Enable();
     }
 

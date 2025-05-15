@@ -10,6 +10,8 @@ public class PlayerMouseMoveController : Controller
 
     public PlayerMouseMoveController(IMouseMovable movable, float moveSensitivity)
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         _movable = movable;
         _moveSensitivity = moveSensitivity;
     }
@@ -22,9 +24,8 @@ public class PlayerMouseMoveController : Controller
 
     private Vector3 GetMouseDirection()
     {
-        float moveX = Input.GetAxis(HorizontalMouseAxis) * _moveSensitivity;
-        float moveY = Input.GetAxis(VerticalMouseAxis) * _moveSensitivity;
-
+        float moveX = Input.GetAxis("Mouse X");
+        float moveY = Input.GetAxis("Mouse Y");
         return new Vector3(moveX, moveY, 0f);
     }
 }

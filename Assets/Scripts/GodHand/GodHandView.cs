@@ -20,9 +20,13 @@ public class GodHandView : MonoBehaviour
     [SerializeField] private float _returnDuration = 0.15f;
     [SerializeField] private float _betweenPreparationAndRecoilDelay = 0.05f;
 
-    [Header("VFX")]
+    [Header("prepare VFX")]
     [SerializeField] private ParticleSystem[] _chargeExplosionVFX;
     [SerializeField] private ParticleSystem _explosionAreaVFX;
+    [SerializeField] private ParticleSystem[] _explosionBeamVFX;
+
+    [Header("Explosion")]
+    [SerializeField] private ParticleSystem _explosionVFXPrefab;
 
     private Vector3 _initialLocalPosition;
 
@@ -35,15 +39,33 @@ public class GodHandView : MonoBehaviour
         PlayGrabberAnimation(GrabModeAnimationName);
     }
 
+    public Explosion CreateExplosion(Vector3 position)
+    {
+        ParticleSystem explosion = Instantiate(_explosionVFXPrefab, position, Quaternion.identity);
+        Destroy(explosion.gameObject, explosion.main.duration);
+
+        return explosion.GetComponent<Explosion>();
+    }
+
     public void PlayShootAnimation()
     {
         PlayGrabberAnimation(ShootModeAnimationName);
+
+        foreach (var vfx in _chargeExplosionVFX)
+        {
+            vfx.Play();
+        }
 
         Recoil();
     }
 
     public void PlayShootFailedAnimation()
     {
+        foreach (var vfx in _chargeExplosionVFX)
+        {
+            vfx.Play();
+        }
+
         RecoilFailed();
     }
 
@@ -80,7 +102,7 @@ public class GodHandView : MonoBehaviour
     {
         _explosionAreaVFX.Play();
 
-        foreach (var vfx in _chargeExplosionVFX)
+        foreach (var vfx in _explosionBeamVFX)
         {
             vfx.Play();
         }

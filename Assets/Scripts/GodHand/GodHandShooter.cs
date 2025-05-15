@@ -8,6 +8,7 @@ public class GodHandShooter : MonoBehaviour, IShooter
     [SerializeField] private int _energyCost = 1;
     [SerializeField] private float _shootCooldown = 1;
     [SerializeField] private int _currentEnergy;
+    [SerializeField] private Transform _laserDot;
 
     private Coroutine _shootReloadingCoroutine;
 
@@ -31,6 +32,10 @@ public class GodHandShooter : MonoBehaviour, IShooter
     private void OnShootCompleted()
     {
         Debug.Log("Shoot completed");
+
+        Vector3 explosionPosition = _laserDot.position;
+        Explosion explosion = _view.CreateExplosion(explosionPosition);
+        explosion.Explode(explosionPosition);
     }
 
     public void TryShoot()

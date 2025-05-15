@@ -67,7 +67,7 @@ namespace FullOpaqueVFX
         {
             ParticleSystem[] particleSystems = GetComponentsInChildren<ParticleSystem>();
             yield return new WaitUntil(() => System.Array.TrueForAll(particleSystems, ps => ps == null || !ps.IsAlive(true)));
-            Destroy(gameObject);
+            // Destroy(gameObject);
         }
 
         void OnEnable()

@@ -2963,7 +2963,7 @@ MonoBehaviour:
   _grabberRotator: {fileID: 7776357115111428038}
   _heightAdjuster: {fileID: 7776357115111428039}
   _magnete: {fileID: 7776357115111428040}
-  _shooter: {fileID: 0}
+  _shooter: {fileID: 7776357115111428042}
 --- !u!4 &2043379020
 Transform:
   m_ObjectHideFlags: 0
@@ -10782,7 +10782,7 @@ MonoBehaviour:
   _view: {fileID: 8031826185150660758}
   _energyCost: 1
   _shootCooldown: 1
-  _currentEnergy: 0
+  _currentEnergy: 100
 --- !u!1 &7777222895484812196
 GameObject:
   m_ObjectHideFlags: 0
@@ -10992,8 +10992,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7fece2db1ae8840aa57a6779a3857c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grabberAnimators: []
-  _handAnimator: {fileID: 0}
+  _grabberAnimators:
+  - {fileID: 8378356044591011225}
+  - {fileID: 798154887}
+  - {fileID: 2133876632}
+  - {fileID: 2089584022}
+  _recoilTarget: {fileID: 4802833869910086419}
+  _preparationLift: 0.2
+  _recoilLift: 0.5
+  _preparationDuration: 0.3
+  _recoilDuration: 0.2
+  _returnDuration: 0.3
+  _betweenPreparationAndRecoilDelay: 0.4
 --- !u!1 &8033128303728729083
 GameObject:
   m_ObjectHideFlags: 0

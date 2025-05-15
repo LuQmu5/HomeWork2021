@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class GodHandShooter : MonoBehaviour, IShooter
@@ -10,6 +11,28 @@ public class GodHandShooter : MonoBehaviour, IShooter
 
     private Coroutine _shootReloadingCoroutine;
 
+    private void OnEnable()
+    {
+        _view.OnShootEffectComplete += OnShootCompleted;
+        _view.OnShootFailedEffectComplete += OnShootFailed;
+    }
+
+    private void OnDisable()
+    {
+        _view.OnShootEffectComplete -= OnShootCompleted;
+        _view.OnShootFailedEffectComplete -= OnShootFailed;
+    }
+
+    private void OnShootFailed()
+    {
+        Debug.Log("Shoot failed");
+    }
+
+    private void OnShootCompleted()
+    {
+        Debug.Log("Shoot completed");
+    }
+
     public void TryShoot()
     {
         if (_shootReloadingCoroutine != null) 
@@ -17,12 +40,13 @@ public class GodHandShooter : MonoBehaviour, IShooter
         
         if (_currentEnergy < _energyCost)
         {
-            float cooldownReduce = 2;
+            float cooldownReduce = 4;
             _shootReloadingCoroutine = StartCoroutine(ShootReloading(_shootCooldown / cooldownReduce));
             _view.PlayShootFailedAnimation();
         }
         else
         {
+            _currentEnergy -= _energyCost;
             _shootReloadingCoroutine = StartCoroutine(ShootReloading(_shootCooldown));
             _view.PlayShootAnimation();
         }
@@ -33,16 +57,5 @@ public class GodHandShooter : MonoBehaviour, IShooter
         yield return new WaitForSeconds(delay);
 
         _shootReloadingCoroutine = null;
-    }
-
-    public void OnShootAnimationCompleted()
-    {
-        _view.CompleteShoot();
-    }
-
-    public void CreateShoot()
-    {
-        _currentEnergy -= _energyCost;
-        Debug.Log("выстрел");
     }
 }

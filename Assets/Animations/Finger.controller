@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FingersGrabMode
+  m_Name: GrabMode
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -58,7 +58,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FingersShootMode
+  m_Name: ShootMode
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

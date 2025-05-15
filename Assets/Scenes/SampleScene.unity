@@ -11273,8 +11273,8 @@ MonoBehaviour:
   _grabbableLayer:
     serializedVersion: 2
     m_Bits: 64
-  _followSpeed: 20
-  _rotationSpeed: 360
+  _followSpeed: 5
+  _rotationSpeed: 180
 --- !u!114 &7776357115111428041
 MonoBehaviour:
   m_ObjectHideFlags: 0

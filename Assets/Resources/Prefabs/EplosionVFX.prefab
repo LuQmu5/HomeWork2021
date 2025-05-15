@@ -43985,10 +43985,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4729a066cb03944f95ab922adf81b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionForce: 700
-  explosionRadius: 5
-  upwardsModifier: 0.5
-  affectedLayers:
+  _explosionForce: 900
+  _explosionRadius: 5
+  _upwardsModifier: 0.75
+  _affectedLayers:
     serializedVersion: 2
     m_Bits: 64
 --- !u!1 &8444309312446136734
